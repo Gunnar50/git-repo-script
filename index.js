@@ -18,7 +18,8 @@ const rl = readline.createInterface({
 setName();
 setEmail();
 
-async function checkRepoExists(repoUrl) {
+async function checkRepoExists(username, repoName) {
+	const url = `https://api.github.com/repos/${username}/${repoName}`;
 	try {
 		await axios.get(repoUrl);
 		return true;
@@ -63,7 +64,7 @@ rl.question(
 				}
 
 				// check if the repo exists
-				if (!(await checkRepoExists(repoUrl))) {
+				if (!(await checkRepoExists(username, repoName))) {
 					console.log(`The repository '${repoName}' does not exist.`);
 					rl.close();
 					process.exit(1);

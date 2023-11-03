@@ -1,4 +1,5 @@
 const { execSync } = require("child_process");
+const path = require("path");
 const prompt = require("prompt-sync")();
 
 // Fget the current global Git configuration
@@ -50,4 +51,17 @@ function setEmail() {
 	}
 }
 
-module.exports = { setName, setEmail };
+function checkAndCreateReadme(repoPath, repoName) {
+	const readmePath = path.join(repoPath, "README.md");
+	if (!fs.existsSync(readmePath)) {
+		fs.writeFileSync(readmePath, `# ${repoName}\n`);
+		console.log("README.md created.");
+	}
+}
+
+function parseRepoUrl(repoUrl) {
+	const match = repoUrl.match(/github\.com\/([^\/]+)\/([^\/]+)/i);
+	return match ? { username: match[1], repoName: match[2] } : null;
+}
+
+module.exports = { setName, setEmail, checkAndCreateReadme, parseRepoUrl };

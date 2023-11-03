@@ -2,7 +2,12 @@
 const { execSync } = require("child_process");
 const readline = require("readline");
 const fs = require("fs");
-const { setEmail, setName } = require("./utils");
+const {
+	setName,
+	setEmail,
+	checkAndCreateReadme,
+	parseRepoUrl,
+} = require("./utils");
 const path = require("path");
 
 const rl = readline.createInterface({
@@ -20,11 +25,6 @@ async function checkRepoExists(repoUrl) {
 	} catch (error) {
 		return false;
 	}
-}
-
-function parseRepoUrl(repoUrl) {
-	const match = repoUrl.match(/github\.com\/([^\/]+)\/([^\/]+)/i);
-	return match ? { username: match[1], repoName: match[2] } : null;
 }
 
 rl.question(
@@ -68,6 +68,9 @@ rl.question(
 					rl.close();
 					process.exit(1);
 				}
+
+				// check and add readme to the repo
+				checkAndCreateReadme(repoPath, repoName);
 
 				process.chdir(repoPath);
 

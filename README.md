@@ -35,7 +35,9 @@ This will execute the script once without installing it globally.
 
 ## How to Use
 
-After installing, run git-repo-script and follow the on-screen prompts. Enter the GitHub repository URL when asked, and if you want to use the current directory, just press Enter when prompted for the repository path.
+Before using the script, make sure you have created an empty repository on GitHub. **Do not initialize the repository with a README, .gitignore, or license.** The script will add a README.md file if one is not present.
+
+After installing, run `create-git-repo` and follow the on-screen prompts. Enter the GitHub repository URL when asked, and if you want to use the current directory, just press Enter when prompted for the repository path.
 
 ## Support
 

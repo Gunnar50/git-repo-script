@@ -2,64 +2,90 @@
 const { execSync } = require("child_process");
 const readline = require("readline");
 const fs = require("fs");
+import { setEmail, setName } from "./utils";
 
 const rl = readline.createInterface({
 	input: process.stdin,
 	output: process.stdout,
 });
 
-const name = "Gustavo Passarella";
-const email = "gustavo.passarella@hotmail.com";
-const githubUsername = "Gunnar50"; // Replace with actual GitHub username
+setName();
+setEmail();
 
-async function checkRepoExists(username, repoName) {
-	const url = `https://api.github.com/repos/${username}/${repoName}`;
+async function checkRepoExists(repoUrl) {
 	try {
-		const response = await fetch(url);
-		return response.status === 200;
+		await axios.get(repoUrl);
+		return true;
 	} catch (error) {
 		return false;
 	}
 }
 
-rl.question("Enter the repo name: ", async (repoName) => {
-	rl.question("Enter the repo path: ", async (repoPath) => {
-		if (!fs.existsSync(repoPath)) {
-			console.log(`The path '${repoPath}' does not exist.`);
+function parseRepoUrl(repoUrl) {
+	// Assumes a standard GitHub repository URL like "https://github.com/username/repo"
+	const match = repoUrl.match(/github\.com\/([^\/]+)\/([^\/]+)/i);
+	return match ? { username: match[1], repoName: match[2] } : null;
+}
+
+rl.question(
+	"Enter the full GitHub repo URL (https://github.com/username/repo): ",
+	async (repoUrl) => {
+		const parsedUrl = parseRepoUrl(repoUrl);
+
+		if (!parsedUrl) {
+			console.error("Invalid GitHub repo URL.");
+			rl.close();
 			process.exit(1);
 		}
 
-		if (!(await checkRepoExists(githubUsername, repoName))) {
-			console.log(`The repository '${repoName}' does not exist.`);
-			process.exit(1);
-		}
+		const { username, repoName } = parsedUrl;
 
-		process.chdir(repoPath);
+		rl.question(
+			"Enter the local repo path (leave it empty to use the current directory): ",
+			async (inputPath) => {
+				// Use the current directory if inputPath is empty
+				const repoPath = inputPath.trim() === "" ? process.cwd() : inputPath;
 
-		const commands = [
-			`git config --global user.name "${name}"`,
-			`git config --global user.email "${email}"`,
-			"git config --global push.default matching",
-			"git config --global alias.co checkout",
-			"git init",
-			"git add .", // Add all
-			`git commit -am "Initial commit"`, // Commit with a comment
-			`git remote add origin https://github.com/${githubUsername}/${repoName}.git`,
-			"git branch -M main",
-			"git push -u origin main",
-		];
+				if (!fs.existsSync(repoPath)) {
+					console.log(`The path '${repoPath}' does not exist.`);
+					rl.close();
+					process.exit(1);
+				}
 
-		try {
-			for (const command of commands) {
-				console.log(command);
-				execSync(command, { stdio: "inherit" });
+				if (!(await checkRepoExists(repoUrl))) {
+					console.log(`The repository '${repoName}' does not exist.`);
+					rl.close();
+					process.exit(1);
+				}
+
+				process.chdir(repoPath);
+
+				const commands = [
+					`git config --global user.name "${name}"`,
+					`git config --global user.email "${email}"`,
+					"git config --global push.default matching",
+					"git config --global alias.co checkout",
+					"git init",
+					"git add .", // Add all
+					`git commit -am "Initial commit"`, // Commit with a comment
+					`git remote add origin ${repoUrl}`,
+					"git branch -M main",
+					"git push -u origin main",
+				];
+
+				try {
+					for (const command of commands) {
+						console.log("Executing: " + command);
+						execSync(command, { stdio: "inherit" });
+					}
+					console.log("Repository setup complete!");
+				} catch (error) {
+					console.error(`Error executing command: ${error}`);
+					process.exit(1);
+				}
+
+				rl.close();
 			}
-			console.log("Done");
-		} catch (error) {
-			console.error(`Error executing command: ${error}`);
-			process.exit(1);
-		}
-
-		rl.close();
-	});
-});
+		);
+	}
+);

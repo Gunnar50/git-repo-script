@@ -24,7 +24,7 @@ function setGitGlobalConfig(key, value) {
 	}
 }
 
-export const setName = () => {
+function setName() {
 	// Check and ask for user.name
 	const userName = getGitGlobalConfig("user.name");
 	if (!userName) {
@@ -35,9 +35,9 @@ export const setName = () => {
 	} else {
 		console.log(`Git user.name is already set to: ${userName}`);
 	}
-};
+}
 
-export const setEmail = () => {
+function setEmail() {
 	// Check and ask for user.email
 	const userEmail = getGitGlobalConfig("user.email");
 	if (!userEmail) {
@@ -48,4 +48,6 @@ export const setEmail = () => {
 	} else {
 		console.log(`Git user.email is already set to: ${userEmail}`);
 	}
-};
+}
+
+module.exports = { setName, setEmail };

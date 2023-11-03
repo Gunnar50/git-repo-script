@@ -2,7 +2,8 @@
 const { execSync } = require("child_process");
 const readline = require("readline");
 const fs = require("fs");
-import { setEmail, setName } from "./utils";
+const { setEmail, setName } = require("./utils");
+const path = require("path");
 
 const rl = readline.createInterface({
 	input: process.stdin,
@@ -46,12 +47,23 @@ rl.question(
 				// Use the current directory if inputPath is empty
 				const repoPath = inputPath.trim() === "" ? process.cwd() : inputPath;
 
+				// check if path exists
 				if (!fs.existsSync(repoPath)) {
 					console.log(`The path '${repoPath}' does not exist.`);
 					rl.close();
 					process.exit(1);
 				}
 
+				// Check if the .git directory exists in the given path
+				if (fs.existsSync(path.join(repoPath, ".git"))) {
+					console.log(
+						`The directory '${repoPath}' is already a git repository.`
+					);
+					rl.close();
+					process.exit(1);
+				}
+
+				// check if the repo exists
 				if (!(await checkRepoExists(repoUrl))) {
 					console.log(`The repository '${repoName}' does not exist.`);
 					rl.close();

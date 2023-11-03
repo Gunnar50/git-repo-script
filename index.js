@@ -73,8 +73,6 @@ rl.question(
 				process.chdir(repoPath);
 
 				const commands = [
-					`git config --global user.name "${name}"`,
-					`git config --global user.email "${email}"`,
 					"git config --global push.default matching",
 					"git config --global alias.co checkout",
 					"git init",

@@ -21,7 +21,7 @@ setEmail();
 async function checkRepoExists(username, repoName) {
 	const url = `https://api.github.com/repos/${username}/${repoName}`;
 	try {
-		await axios.get(repoUrl);
+		await axios.get(url);
 		return true;
 	} catch (error) {
 		return false;

@@ -31,7 +31,7 @@ If you prefer to run the script without installing it globally, you can use npx 
 npx https://github.com/Gunnar50/git-repo-script.git
 ```
 
-This will execute the script once without installing it globally.
+Press enter when it asks to install the package. This will install and execute the script once then it will automatically unistall it.
 
 ## How to Use
 

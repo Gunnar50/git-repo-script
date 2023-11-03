@@ -23,7 +23,6 @@ async function checkRepoExists(repoUrl) {
 }
 
 function parseRepoUrl(repoUrl) {
-	// Assumes a standard GitHub repository URL like "https://github.com/username/repo"
 	const match = repoUrl.match(/github\.com\/([^\/]+)\/([^\/]+)/i);
 	return match ? { username: match[1], repoName: match[2] } : null;
 }
@@ -44,7 +43,7 @@ rl.question(
 		rl.question(
 			"Enter the local repo path (leave it empty to use the current directory): ",
 			async (inputPath) => {
-				// Use the current directory if inputPath is empty
+				// use the current directory if inputPath is empty
 				const repoPath = inputPath.trim() === "" ? process.cwd() : inputPath;
 
 				// check if path exists
@@ -54,7 +53,7 @@ rl.question(
 					process.exit(1);
 				}
 
-				// Check if the .git directory exists in the given path
+				// check if the .git directory exists
 				if (fs.existsSync(path.join(repoPath, ".git"))) {
 					console.log(
 						`The directory '${repoPath}' is already a git repository.`
@@ -76,8 +75,8 @@ rl.question(
 					"git config --global push.default matching",
 					"git config --global alias.co checkout",
 					"git init",
-					"git add .", // Add all
-					`git commit -am "Initial commit"`, // Commit with a comment
+					"git add .",
+					`git commit -am "Initial commit"`,
 					`git remote add origin ${repoUrl}`,
 					"git branch -M main",
 					"git push -u origin main",

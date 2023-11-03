@@ -1,7 +1,7 @@
 const { execSync } = require("child_process");
 const prompt = require("prompt-sync")();
 
-// Function to get the current global Git configuration
+// Fget the current global Git configuration
 function getGitGlobalConfig(key) {
 	try {
 		const value = execSync(`git config --global --get ${key}`, {
@@ -9,7 +9,7 @@ function getGitGlobalConfig(key) {
 		}).trim();
 		return value || null;
 	} catch (error) {
-		return null; // The config is not set
+		return null;
 	}
 }
 
@@ -25,7 +25,7 @@ function setGitGlobalConfig(key, value) {
 }
 
 function setName() {
-	// Check and ask for user.name
+	// check and ask for user name
 	const userName = getGitGlobalConfig("user.name");
 	if (!userName) {
 		const name = prompt("Enter your Git user.name: ");
@@ -38,7 +38,7 @@ function setName() {
 }
 
 function setEmail() {
-	// Check and ask for user.email
+	// check and ask for user email
 	const userEmail = getGitGlobalConfig("user.email");
 	if (!userEmail) {
 		const email = prompt("Enter your Git user.email: ");

@@ -1,11 +1,11 @@
 {
-	"name": "create-git-repo",
+	"name": "create-local-repo",
 	"version": "1.0.0",
 	"description": "Simple script to link a folder to a git repository",
 	"main": "index.js",
 	"bin": {
-		"create-git-repo": "./index.js",
-		"cgr": "./index.js"
+		"create-local-repo": "./index.js",
+		"clr": "./index.js"
 	},
 	"repository": {
 		"type": "git",

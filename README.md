@@ -20,7 +20,7 @@ npm install -g https://github.com/Gunnar50/git-repo-script.git
 Once installed, you can run the script from anywhere on your system by simply typing:
 
 ```sh
-create-git-repo
+create-local-repo
 ```
 
 ## Using Git Repo Script Without Installation
@@ -37,7 +37,7 @@ Press enter when it asks to install the package. This will install and execute t
 
 Before using the script, make sure you have created an empty repository on GitHub. **Do not initialize the repository with a README, .gitignore, or license.** The script will add a README.md file if one is not present.
 
-After installing, run `create-git-repo` and follow the on-screen prompts. Enter the GitHub repository URL when asked, and if you want to use the current directory, just press Enter when prompted for the repository path.
+After installing, run `create-local-repo` and follow the on-screen prompts. Enter the GitHub repository URL when asked, and if you want to use the current directory, just press Enter when prompted for the repository path.
 
 ## Support
 

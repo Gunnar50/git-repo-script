@@ -1,5 +1,6 @@
 const { execSync } = require("child_process");
 const path = require("path");
+const fs = require("fs");
 const prompt = require("prompt-sync")();
 
 // Fget the current global Git configuration

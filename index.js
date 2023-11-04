@@ -23,7 +23,7 @@ async function checkRepoExists(username, repoName) {
 	const url = `https://api.github.com/repos/${username}/${repoName}`;
 	try {
 		const response = await axios.get(url);
-		return response.status_code === 200;
+		return response.status === 200;
 	} catch (error) {
 		return false;
 	}

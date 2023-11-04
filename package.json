@@ -1,6 +1,6 @@
 {
 	"name": "create-local-repo",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Simple script to link a folder to a git repository",
 	"main": "index.js",
 	"bin": {

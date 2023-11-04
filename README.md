@@ -14,7 +14,7 @@ This script automates the process of initializing a local directory as a Git rep
 To install the script globally on your machine, run the following command:
 
 ```sh
-npm install -g https://github.com/Gunnar50/git-repo-script.git
+npm install -g create-local-repo
 ```
 
 Once installed, you can run the script from anywhere on your system by simply typing:
@@ -25,10 +25,10 @@ create-local-repo
 
 ## Using Git Repo Script Without Installation
 
-If you prefer to run the script without installing it globally, you can use npx which comes with npm 5.2+ and higher. Navigate to the directory where you want to initialize your repository and run:
+If you prefer to run the script without installing it globally, you can use the npx command. Navigate to the directory where you want to initialize your repository and run:
 
 ```sh
-npx https://github.com/Gunnar50/git-repo-script.git
+npx create-local-repo
 ```
 
 Press enter when it asks to install the package. This will install and execute the script once then it will automatically unistall it.

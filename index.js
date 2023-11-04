@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+const axios = require("axios");
 const { execSync } = require("child_process");
 const readline = require("readline");
 const fs = require("fs");
@@ -21,8 +22,8 @@ setEmail();
 async function checkRepoExists(username, repoName) {
 	const url = `https://api.github.com/repos/${username}/${repoName}`;
 	try {
-		await axios.get(url);
-		return true;
+		const response = await axios.get(url);
+		return response.status_code === 200;
 	} catch (error) {
 		return false;
 	}

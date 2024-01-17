@@ -62,7 +62,7 @@ function checkAndCreateReadme(repoPath, repoName) {
 
 function checkAndCreateGitIgnore(repoPath) {
 	const gitignorePath = path.join(repoPath, ".gitignore");
-	const templateGitignorePath = path.join(__dirname, ".gitignore");
+	const templateGitignorePath = path.join(__dirname, "template.gitignore");
 
 	if (!fs.existsSync(gitignorePath)) {
 		if (fs.existsSync(templateGitignorePath)) {
@@ -83,4 +83,10 @@ function parseRepoUrl(repoUrl) {
 	return match ? { username: match[1], repoName: match[2] } : null;
 }
 
-module.exports = { setName, setEmail, checkAndCreateReadme, parseRepoUrl };
+module.exports = {
+	setName,
+	setEmail,
+	checkAndCreateReadme,
+	parseRepoUrl,
+	checkAndCreateGitIgnore,
+};

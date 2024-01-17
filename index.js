@@ -7,6 +7,7 @@ const {
 	setName,
 	setEmail,
 	checkAndCreateReadme,
+	checkAndCreateGitIgnore,
 	parseRepoUrl,
 } = require("./utils");
 const path = require("path");
@@ -71,8 +72,9 @@ rl.question(
 					process.exit(1);
 				}
 
-				// check and add readme to the repo
+				// check and add readme/.gitignore to the repo
 				checkAndCreateReadme(repoPath, repoName);
+				checkAndCreateGitIgnore(repoPath);
 
 				process.chdir(repoPath);
 

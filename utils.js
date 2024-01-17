@@ -60,6 +60,24 @@ function checkAndCreateReadme(repoPath, repoName) {
 	}
 }
 
+function checkAndCreateGitIgnore(repoPath) {
+	const gitignorePath = path.join(repoPath, ".gitignore");
+	const templateGitignorePath = path.join(__dirname, ".gitignore");
+
+	if (!fs.existsSync(gitignorePath)) {
+		if (fs.existsSync(templateGitignorePath)) {
+			// read the contents of the template .gitignore file
+			const gitignoreContents = fs.readFileSync(templateGitignorePath, "utf8");
+
+			// write the contents to the new .gitignore file
+			fs.writeFileSync(gitignorePath, gitignoreContents);
+			console.log(".gitignore created with default contents.");
+		} else {
+			console.log("Template .gitignore file not found.");
+		}
+	}
+}
+
 function parseRepoUrl(repoUrl) {
 	const match = repoUrl.match(/github\.com\/([^\/]+)\/([^\/]+)/i);
 	return match ? { username: match[1], repoName: match[2] } : null;

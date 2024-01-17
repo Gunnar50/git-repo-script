@@ -35,7 +35,7 @@ Press enter when it asks to install the package. This will install and execute t
 
 ## How to Use
 
-Before using the script, make sure you have created an empty repository on GitHub. **Do not initialize the repository with a README, .gitignore, or license.** The script will add a README.md file if one is not present.
+Before using the script, make sure you have created an empty repository on GitHub. **Do not initialize the repository with a README, .gitignore, or license.** The script will add a README.md and .gitignore file if one is not present.
 
 After installing, run `create-local-repo` and follow the on-screen prompts. Enter the GitHub repository URL when asked, and if you want to use the current directory, just press Enter when prompted for the repository path.
 
